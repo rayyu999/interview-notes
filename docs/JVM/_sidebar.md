@@ -1,5 +1,4 @@
-<center><font size="5">interview-notes</font></center>
+<center><a href="#" target="_blank" style="font-size:28px;text-decoration:none;color:#000000;">interview-notes</a></center>
 
-* [主页](/)
 * [JVM](JVM/)
 

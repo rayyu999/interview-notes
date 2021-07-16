@@ -1,4 +1,4 @@
-# interview-notes
+# interview-notes<!-- {docsify-ignore-all} -->
 
 > 秋招冲冲冲
 
