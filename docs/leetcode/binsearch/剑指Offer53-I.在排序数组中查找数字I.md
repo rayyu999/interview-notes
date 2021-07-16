@@ -36,9 +36,13 @@ https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof/
 
 因为数组有序，因此可以首先使用二分查找找到与 `target` 相等的元素在数组中第一次出现的下标，再往后搜索统计出现次数。
 
+或者分别用二分查找找到第一次和最后一次出现的位置，然后根据两个值即可计算出结果。
+
 
 
 ## 代码
+
+找左边界然后往后搜索：
 
 ```java
 class Solution {
@@ -62,6 +66,50 @@ class Solution {
             }
         }
         return res;
+    }
+}
+```
+
+分别找两个边界：
+
+```java
+class Solution {
+    public int search(int[] nums, int target) {
+        if (nums.length > 0) {
+            int f = findFirst(nums, target);
+            if (f == -1) {
+                return 0;
+            }
+            int l = findLast(nums, target);
+            return l - f + 1;
+        }
+        return 0;
+    }
+
+    private int findFirst(int[] nums, int target) {
+        int l = 0, r = nums.length - 1;
+        while (l < r) {
+            int mid = l + (r - l >> 1);
+            if (nums[mid] >= target) {
+                r = mid;
+            } else {
+                l = mid + 1;
+            }
+        }
+        return nums[l] == target ? l : -1;
+    }
+
+    private int findLast(int[] nums, int target) {
+        int l = 0, r = nums.length - 1;
+        while (l < r) {
+            int mid = l + (r - l + 1 >> 1);
+            if (nums[mid] <= target) {
+                l = mid;
+            } else {
+                r = mid - 1;
+            }
+        }
+        return nums[l] == target ? l : -1;
     }
 }
 ```
