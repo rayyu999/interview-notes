@@ -2,7 +2,7 @@
 
 
 
-## [排序](algorithm/datastructure/排序/)
+* [排序](algorithm/datastructure/排序/)
 
 
 

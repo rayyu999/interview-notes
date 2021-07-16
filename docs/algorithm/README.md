@@ -4,7 +4,7 @@
 
 ## 数据结构
 
-* [排序](algorithm/datastructure/排序)
+* [排序](algorithm/datastructure/排序/)
 
 
 
@@ -14,5 +14,5 @@
 
 * [动态规划](leetcode/dp/)
 
-* [二分查找](leetcode/binsearch/)
+* [二分查找](algorithm/leetcode/binsearch/)
 
