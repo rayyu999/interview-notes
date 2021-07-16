@@ -1,4 +1,6 @@
-* [动态规划](algorithm/leetcode/dp/)
+* [**算法**](algorithm/)
 
-* [二分查找](algorithm/leetcode/binsearch/)
+  * [数据结构](algorithm/datastructure/)
+
+  * [leetcode刷题笔记](algorithm/leetcode/)
 
