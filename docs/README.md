@@ -9,7 +9,7 @@
 这部分主要包括数据结构以及 leetcode 刷题的笔记。
 
 * [数据结构](algorithm/datastructure/)
-* [leetcode刷题笔记]((algorithm/leetcode/))
+* [leetcode刷题笔记](algorithm/leetcode/)
 
 
 
