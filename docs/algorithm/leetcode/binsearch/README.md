@@ -27,7 +27,7 @@ public int binsearch(int[] nums, int target) {
 
 ## 找左边界（第一次出现的位置）
 
-搜索区间为 `[left, right]`，中间元素小于目标时，收缩左边界；否则收缩右边界。这样能保证每次搜索的区间内都是大于等于目标的元素。
+搜索区间为 `[left, right]`，中间元素小于目标时，收缩左边界；否则收缩右边界。在中间元素等于目标时令 `right = mid` 是为了防止 `mid` 刚好为结果的情况。
 
 ```java
 public int binsearch(int[] nums, int target) {
@@ -48,7 +48,7 @@ public int binsearch(int[] nums, int target) {
 
 ## 找右边界（最后一次出现的位置）
 
-搜索区间为 `[left, right]`，中间元素大于目标时，收缩右边界；否则收缩左边界。这样能保证每次搜索的区间内都是小于等于目标的元素。
+搜索区间为 `[left, right]`，中间元素大于目标时，收缩右边界；否则收缩左边界。在中间元素等于目标时令 `left = mid` 是为了防止 `mid` 刚好为结果的情况，计算 `mid` 的时候要 `+1` 是为了防止最后死循环。
 
 ```java
 public int binsearch(int[] nums, int target) {
