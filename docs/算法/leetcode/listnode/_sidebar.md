@@ -3,8 +3,12 @@
 * [**算法**](算法/)
   * [数据结构](算法/数据结构/)
   * [leetcode刷题笔记](算法/leetcode/)
+    
     * [链表](算法/leetcode/listnode/)
-    * [动态规划](算法/leetcode/dp/)
-    * [二分查找](算法/leetcode/binsearch/)
-    * [设计](算法/leetcode/design/)
+    
+    * 题目
+    
+      * [206. 反转链表](算法/leetcode/listnode/206.%20反转链表)
+    
+      
 
