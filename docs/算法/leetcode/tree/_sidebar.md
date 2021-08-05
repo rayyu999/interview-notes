@@ -4,11 +4,10 @@
   * [数据结构](算法/数据结构/)
   * [leetcode刷题笔记](算法/leetcode/)
     
-    * [链表](算法/leetcode/listnode/)
+    * [树](算法/leetcode/tree/)
     
     * 题目
     
-      * [25. K 个一组翻转链表](算法/leetcode/listnode/25.%20K%20个一组翻转链表)
-      * [206. 反转链表](算法/leetcode/listnode/206.%20反转链表)
+      * [103. 二叉树的锯齿形层序遍历](算法/leetcode/tree/103.%20二叉树的锯齿形层序遍历)
       
       
