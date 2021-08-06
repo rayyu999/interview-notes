@@ -5,5 +5,6 @@
   * [leetcode刷题笔记](算法/leetcode/)
     * [数组](算法/leetcode/array/)
     * 题目
+      * [15. 三数之和](算法/leetcode/array/15.%20三数之和)
       * [215. 数组中的第K个最大元素](算法/leetcode/array/215.%20数组中的第K个最大元素)
 
