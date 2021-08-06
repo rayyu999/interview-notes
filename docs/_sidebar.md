@@ -4,8 +4,8 @@
   * [数据结构](算法/数据结构/)
   * [leetcode刷题笔记](算法/leetcode/)
 * [语言基础](语言基础/)
-  * Java
-  * GoLang
+  * [Java](语言基础/Java/)
+  * [GoLang](语言基础/GoLang/)
 * [集合框架](集合框架/)
 * [并发](并发/)
 * [JVM](JVM/)
