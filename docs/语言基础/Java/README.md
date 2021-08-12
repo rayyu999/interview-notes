@@ -16,3 +16,8 @@
 | double   |        |        |        |        | Double     |      |
 | void     |        |        |        |        | Void       |      |
 
+
+
+## 泛型
+
+https://blog.csdn.net/briblue/article/details/76736356
