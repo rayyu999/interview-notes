@@ -33,6 +33,8 @@
 
 - **from**：需要从哪个数据表检索数据
 
+- **on**：关联条件
+
 - **join**：对需要关联查询的表进行关联
 
    关联查询时，数据库会选择一个驱动表，然后用此表的记录去关联其他表
@@ -56,8 +58,6 @@
   - 在选择Join算法时，会有优先级，理论上会优先判断能否使用INLJ、BNLJ：
     Index Nested-LoopJoin > Block Nested-Loop Join > Simple Nested-Loop Join
   - 注：可以使用explain查找驱动表，结果的第一张表即为驱动表，但执行计划在真正执行时可能发生改变
-
-- **on**：关联条件
 
 - **where**：过滤表中数据的条件
 
