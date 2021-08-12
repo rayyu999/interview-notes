@@ -9,5 +9,6 @@
     * [树](算法/leetcode/tree/)
     * [动态规划](算法/leetcode/dp/)
     * [二分查找](算法/leetcode/binsearch/)
+    * [栈 & 队列](算法/leetcode/stack_queue/)
     * [设计](算法/leetcode/design/)
 
