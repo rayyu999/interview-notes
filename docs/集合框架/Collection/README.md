@@ -25,6 +25,6 @@ public class ArrayList<E> extends AbstractList<E>
 
 
 
-#### ArrayList 扩容机制
+#### [ArrayList 扩容机制](https://snailclimb.gitee.io/javaguide/#/docs/java/collection/ArrayList%E6%BA%90%E7%A0%81+%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6%E5%88%86%E6%9E%90?id=_3-arraylist-%e6%89%a9%e5%ae%b9%e6%9c%ba%e5%88%b6%e5%88%86%e6%9e%90)
 
 ![](https://images.yingwai.top/picgo/20210812170458.png)
