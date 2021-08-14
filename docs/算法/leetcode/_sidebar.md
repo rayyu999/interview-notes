@@ -10,6 +10,7 @@
     * [动态规划](算法/leetcode/dp/)
     * [二分查找](算法/leetcode/binsearch/)
     * [DFS & BFS](算法/leetcode/dfs_bfs/)
+    * [哈希](算法/leetcode/hash/)
     * [栈 & 队列](算法/leetcode/stack_queue/)
     * [滑动窗口](算法/leetcode/sw/)
     * [设计](算法/leetcode/design/)
