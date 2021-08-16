@@ -2,7 +2,7 @@
 
 
 
-## 简单工厂模式 Simple Factory
+## **简单工厂模式 Simple Factory**
 
 直接 new 对象的方式相当于当我们需要一个苹果时，我们需要知道苹果的构造方法，需要一个梨子时，需要知道梨子的构造方法。更好的实现方式是有一个水果工厂，我们告诉工厂需要什么种类的水果，水果工厂将我们需要的水果制造出来给我们就可以了。这样我们就无需知道苹果、梨子是怎么种出来的，只用和水果工厂打交道即可。
 
@@ -62,7 +62,7 @@ public class FruitFactory {
 
 
 
-## 工厂模式 Factory
+## **工厂模式 Factory**
 
 工厂模式（Factory Pattern）是 Java 中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。
 
@@ -215,7 +215,7 @@ class Application is
 
 
 
-## 抽象工厂模式 Abstract Factory
+## **抽象工厂模式 Abstract Factory**
 
 抽象工厂模式（Abstract Factory Pattern）是围绕一个超级工厂创建其他工厂。该超级工厂又称为其他工厂的工厂。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。
 
@@ -370,7 +370,7 @@ class ApplicationConfigurator is
 
 
 
-## 单例模式 Singleton
+## **单例模式 Singleton**
 
 单例模式（Singleton Pattern）是 Java 中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。
 
@@ -489,7 +489,7 @@ class Application is
 
 单例模式有两种实现方式：饿汉式和懒汉式。
 
-#### **饿汉式**
+#### 饿汉式
 
 变量在声明时就初始化。
 
@@ -508,7 +508,7 @@ public class Singleton {
 }
 ```
 
-#### **懒汉式**
+#### 懒汉式
 
 变量在需要用的时候才初始化。
 
@@ -576,7 +576,7 @@ public class Singleton {
 
 
 
-## 建造者模式 Builder
+## **建造者模式 Builder**
 
 建造者模式（Builder Pattern）使用多个简单的对象一步一步构建成一个复杂的对象。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。
 
@@ -783,7 +783,7 @@ class Application is
 
 
 
-## 原型模式 Prototype
+## **原型模式 Prototype**
 
 原型模式（Prototype Pattern）是用于创建重复的对象，同时又能保证性能。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。
 
