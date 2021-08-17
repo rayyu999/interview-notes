@@ -68,3 +68,35 @@ SHOW ENGINES
    * 由于对字段进行运算、函数操作导致无法用索引
 2. [数据库选错了索引](https://www.cnblogs.com/kubidemanong/p/10734045.html)（可以用 `explain` 命令查看执行计划，也可以在查询时用 `force index(a)` 来强制使用索引 a）
 
+
+
+## SQL 语言
+
+SQL语言共分为四大类：数据查询语言DQL，数据操纵语言DML，数据定义语言DDL，数据控制语言DCL。
+
+### 数据查询语言 DQL
+
+数据查询语言DQL基本结构是由SELECT子句，FROM子句，WHERE子句组成的查询块：
+
+SELECT <字段名表>
+FROM <表或视图名>
+WHERE <查询条件>
+
+### 数据操纵语言 DML
+
+数据操纵语言DML主要有三种形式：
+
+1. 插入：INSERT
+2. 更新：UPDATE
+3. 删除：DELETE
+
+### 数据定义语言 DDL
+
+用于定义和管理 SQL 数据库中的所有对象的语言：
+
+1. 创建表：CREATE
+
+2. 修改表：ALTER
+
+3. 删除表：DROP
+
