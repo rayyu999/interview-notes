@@ -8,6 +8,7 @@
     * [字符串](算法/leetcode/string/)
     * [树](算法/leetcode/tree/)
     * [动态规划](算法/leetcode/dp/)
+    * [贪心](算法/leetcode/greedy/)
     * [二分查找](算法/leetcode/binsearch/)
     * [DFS & BFS](算法/leetcode/dfs_bfs/)
     * [哈希](算法/leetcode/hash/)
