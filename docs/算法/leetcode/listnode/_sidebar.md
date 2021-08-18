@@ -13,6 +13,7 @@
       * [25. K 个一组翻转链表](算法/leetcode/listnode/25.%20K%20个一组翻转链表)
       * [92. 反转链表 II](算法/leetcode/listnode/92.%20反转链表%20II)
       * [143. 重排链表](算法/leetcode/listnode/143.%20重排链表)
+      * [148. 排序链表](算法/leetcode/listnode/148.%20排序链表)
       * [160. 相交链表](算法/leetcode/listnode/160.%20相交链表)
       * [206. 反转链表](算法/leetcode/listnode/206.%20反转链表)
       
