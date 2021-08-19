@@ -14,5 +14,6 @@
     * [哈希](算法/leetcode/hash/)
     * [栈 & 队列](算法/leetcode/stack_queue/)
     * [滑动窗口](算法/leetcode/sw/)
+    * [数学](算法/leetcode/math/)
     * [设计](算法/leetcode/design/)
 
