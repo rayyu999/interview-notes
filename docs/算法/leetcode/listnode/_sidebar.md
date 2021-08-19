@@ -8,7 +8,7 @@
     
     * 题目
     
-      * [21. 合并两个升序链表](算法/leetcode/listnode/21.%20合并两个升序链表)
+      * [21. 合并两个有序链表](算法/leetcode/listnode/21.%20合并两个有序链表)
       * [23. 合并 K 个升序链表](算法/leetcode/listnode/23.%20合并K个升序链表)
       * [25. K 个一组翻转链表](算法/leetcode/listnode/25.%20K%20个一组翻转链表)
       * [82. 删除排序链表中的重复元素 II](算法/leetcode/listnode/82.%20删除排序链表中的重复元素%20II)
