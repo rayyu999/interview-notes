@@ -6,4 +6,5 @@
     * [设计](算法/leetcode/design/)
     * 题目
       * [146. LRU 缓存机制](算法/leetcode/design/146.%20LRU%20缓存机制)
+      * [155. 最小栈](算法/leetcode/design/155.%20最小栈)
 
