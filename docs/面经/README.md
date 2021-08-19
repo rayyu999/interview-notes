@@ -13,7 +13,7 @@
 5. Redis 过期键删除策略有哪几种？比较一下
 6. Redis 持久化机制
 
-算法：32.最长有效括号
+算法：[32. 最长有效括号](https://leetcode-cn.com/problems/longest-valid-parentheses)
 
 
 
@@ -36,7 +36,22 @@
 15. 分页查询时越到后面越慢，从索引的角度讲讲为什么
 16. a, b, c 为联合索引，查询时条件为 a >= 9 and b = 0 and c = 1 的情况下哪个字段能用到索引，为什么？
 
-算法：64.最小路径和
+算法：[64. 最小路径和](https://leetcode-cn.com/problems/minimum-path-sum)
+
+
+
+### 互娱研发提前批三面（8/19）
+
+1. TCP链接中一端断线，另一端继续调用 send 会发生什么，程序里面调用 send 会返回什么？
+2. TCP三次握手中第三次握手丢失会发生什么
+3. 操作系统如何进行进程调度
+
+4. 设计预定会议室功能
+5. 项目
+6. 保证幂等性的token与锁有什么区别
+7. 采用取模进行分片的集群要进行扩容或缩容，机器数量从A到B，计算要迁移的数据量
+
+算法：[剑指 Offer II 112. 最长递增路径](https://leetcode-cn.com/problems/fpTFWP)
 
 
 
@@ -63,7 +78,7 @@
 2. 服务器的私钥应该如何保存？
 3. 代码实现浏览网页的前进、后退、打开新网页
 
-算法：236.二叉树的最近公共祖先
+算法：[236. 二叉树的最近公共祖先](https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree)
 
 
 
