@@ -254,7 +254,7 @@ recv函数返回其实际copy的字节数。如果recv在copy时出错，那么�
 
 注意：在Unix系统下，如果recv函数在等待协议接收数据时网络断开了，那么调用recv的进程会接收到一个SIGPIPE信号，进程对该信号的默认处理是进程终止。
 
-参考链接：
+**参考链接：**
 
 * [Socket send函数和recv函数详解](https://www.cnblogs.com/jianqiang2010/archive/2010/08/20/1804598.html)
 * [深入理解send/recv系统调用](https://www.huaweicloud.com/articles/00264eeea3f832c7c89abd5e7e97d498.html)
