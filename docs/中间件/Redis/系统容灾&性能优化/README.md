@@ -8,7 +8,7 @@
 
 Redis 可以通过持久化机制，备份数据。有两种方式，一种是开启 RDB，RDB 是 Redis 的二进制快照文件，优点是文件紧凑，占用空间小，恢复速度比较快。同时，由于是子进程 Fork 的模式，对 Redis 本身读写性能的影响很小。
 
-![](https://images.yingwai.top/picgo/20210810155442.png)
+![](https://images.yingwai.top/picgo/20210810155442.png ':size=60%')
 
 另一种方式是 AOF，AOF 中记录了 Redis 的操作命令，可以重放请求恢复现场，AOF 的文件会比 RDB 大很多。
 
@@ -16,7 +16,7 @@ Redis 可以通过持久化机制，备份数据。有两种方式，一种是�
 
 AOF 的优点是故障情况下，丢失的数据会比 RDB 更少。如果是执行命令后立马刷入，AOF 会拖累执行速度，所以一般都是配置为每秒定期刷入，这样对性能影响不会很大。
 
-![](https://images.yingwai.top/picgo/20210810155502.png)
+![](https://images.yingwai.top/picgo/20210810155502.png ':size=60%')
 
 ### AOF 重写
 
@@ -24,7 +24,7 @@ Redis 可以在 AOF 文件体积变得过大时，自动地在后台 Fork 一个
 
 在重写过程中，Redis 不但将新的操作记录在原有的 AOF 缓冲区，而且还会记录在 AOF 重写缓冲区。一旦新 AOF 文件创建完毕，Redis 就会将重写缓冲区内容，追加到新的 AOF 文件，再用新 AOF 文件替换原来的 AOF 文件。
 
-![](https://images.yingwai.top/picgo/20210810155526.png)
+![](https://images.yingwai.top/picgo/20210810155526.png ':size=60%')
 
 
 
@@ -53,7 +53,7 @@ Redis 支持三种[集群方案](https://segmentfault.com/a/1190000022808576)：
 
 #### 主从复制原理
 
-![](https://images.yingwai.top/picgo/20210722221843.png)
+![](https://images.yingwai.top/picgo/20210722221843.png ':size=34%')
 
 - 从数据库启动成功后，连接主数据库，发送 SYNC 命令；
 - 主数据库接收到 SYNC 命令后，开始执行 BGSAVE 命令生成 RDB 文件并使用缓冲区记录此后执行的所有写命令；
@@ -73,7 +73,7 @@ Redis 支持三种[集群方案](https://segmentfault.com/a/1190000022808576)：
 
 哨兵来监测 Redis 服务是否正常，异常情况下，由哨兵代理切换。为避免哨兵成为单点，哨兵也需要多机部署。
 
-![](https://images.yingwai.top/picgo/20210722222300.png)
+![](https://images.yingwai.top/picgo/20210722222300.png ':size=50%')
 
 #### 哨兵模式作用
 
@@ -109,7 +109,7 @@ Redis 支持三种[集群方案](https://segmentfault.com/a/1190000022808576)：
 3. 选择复制偏移量最大的从节点作为主节点，如果都一样，则继续。这里解释下，数据偏移量记录写了多少数据，主服务器会把偏移量同步给从服务器，当主从的偏移量一致，则数据是完全同步；
 4. 选择runid最小的从节点作为主节点。Redis每次启动的时候生成随机的runid作为Redis的标识。
 
-![](https://images.yingwai.top/picgo/20210810155657.png)
+![](https://images.yingwai.top/picgo/20210810155657.png ':size=45%')
 
 #### 哨兵 Leader
 
@@ -117,7 +117,7 @@ Redis 支持三种[集群方案](https://segmentfault.com/a/1190000022808576)：
 
 如果一个哨兵节点获得的选举票数**超过节点数的一半，且大于quorum配置的值**，则该哨兵节点选举为Leader；否则重新进行选举。
 
-![](https://images.yingwai.top/picgo/20210810155731.png)
+![](https://images.yingwai.top/picgo/20210810155731.png ':size=60%')
 
 
 
@@ -131,7 +131,7 @@ Redis 的哨兵模式基本已经可以实现高可用，读写分离 ，但是�
 
 同时，基于Gossip协议，集群状态变化时，如新节点加入、节点宕机、Slave提升为新Master，这些变化都能传播到整个集群的所有节点并达成一致。
 
-![](https://images.yingwai.top/picgo/20210722231130.png)
+![](https://images.yingwai.top/picgo/20210722231130.png ':size=58%')
 
 #### 集群的数据分片
 
@@ -145,13 +145,13 @@ Redis 集群没有使用一致性 hash，而是引入了哈希槽【hash slot】
 
 传统的Hash分片，可以将某个Key，落到某个节点。但有一个问题，当节点扩容或者缩容，路由会被完全打乱。如果是缓存场景，很容易造成缓存雪崩问题。
 
-![](https://images.yingwai.top/picgo/20210721155501.png)
+![](https://images.yingwai.top/picgo/20210721155501.png ':size=60%')
 
 为了优化这种情况，一致性Hash就应运而生了。一致性Hash是说将数据和服务器，以相同的Hash函数，映射到同一个Hash环上，针对一个对象，在哈希环上顺时针查找距其最近的机器，这个机器就负责处理该对象的相关请求。
 
 这种情况下，增加节点，只会分流后面一个节点的数据。减少节点，那么请求会由后一个节点继承。也就是说，节点变化操作，最多只会影响后面一个节点的数据。
 
-![](https://images.yingwai.top/picgo/20210721155521.png)
+![](https://images.yingwai.top/picgo/20210721155521.png ':size=60%')
 
 **参考链接：**
 
@@ -176,7 +176,7 @@ Redis是单线程Reactor模型，通过高效的IO复用以及内存处理实现
 
 另外，如果考虑到RDB的Fork，一些定时任务的处理，那么Redis也可以说多进程。但是Redis对数据的处理，至始至终，都是单线程。
 
-![](https://images.yingwai.top/picgo/20210722233334.png)
+![](https://images.yingwai.top/picgo/20210722233334.png ':size=60%')
 
 
 
@@ -184,4 +184,4 @@ Redis是单线程Reactor模型，通过高效的IO复用以及内存处理实现
 
 多线程功能，主要用于提高解包的效率。和传统的Multi Reactor多线程模型不同，Redis的多线程只负责处理网络IO的解包和协议转换，一方面是因为Redis的单线程处理足够快，另一方面也是为了兼容性做考虑。
 
-![](https://images.yingwai.top/picgo/20210722233508.png)
+![](https://images.yingwai.top/picgo/20210722233508.png ':size=60%')

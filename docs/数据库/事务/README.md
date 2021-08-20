@@ -146,17 +146,17 @@ MySQL 为了解决并发、数据安全的问题，使用了锁机制。
 
 **`insert` 时的数据初始状态：**
 
-![](https://images.yingwai.top/picgo/20210817142503.png)
+![](https://images.yingwai.top/picgo/20210817142503.png ':size=60%')
 
 2. **`update undo log`** ：`update` 或 `delete` 操作中产生的 `undo log`。该 `undo log`可能需要提供 `MVCC` 机制，因此不能在事务提交时就进行删除。提交时放入 `undo log` 链表，等待 `purge线程` 进行最后的删除
 
 **数据第一次被修改时：**
 
-![](https://images.yingwai.top/picgo/20210817142543.png)
+![](https://images.yingwai.top/picgo/20210817142543.png ':size=75%')
 
 **数据第二次被修改时：**
 
-![](https://images.yingwai.top/picgo/20210817142603.png)
+![](https://images.yingwai.top/picgo/20210817142603.png ':size=75%')
 
 不同事务或者相同事务的对同一记录行的修改，会使该记录行的 `undo log` 成为一条链表，链首就是最新的记录，链尾就是最早的旧记录。
 
@@ -164,7 +164,7 @@ MySQL 为了解决并发、数据安全的问题，使用了锁机制。
 
 在 `InnoDB` 存储引擎中，创建一个新事务后，执行每个 `select` 语句前，都会创建一个快照（Read View），**快照中保存了当前数据库系统中正处于活跃（没有 commit）的事务的 ID 号**。其实简单的说保存的是系统中当前不应该被本事务看到的其他事务 ID 列表（即 m_ids）。当用户在这个事务中要读取某个记录行的时候，`InnoDB` 会将该记录行的 `DB_TRX_ID` 与 `Read View` 中的一些变量及当前事务 ID 进行比较，判断是否满足可见性条件。
 
-![](https://images.yingwai.top/picgo/20210817142725.png)
+![](https://images.yingwai.top/picgo/20210817142725.png ':size=80%')
 
 1. 如果记录 `DB_TRX_ID < m_up_limit_id`，那么表明最新修改该行的事务（`DB_TRX_ID`）在当前事务创建快照之前就提交了，所以该记录行的值对当前事务是可见的
 2. 如果 `DB_TRX_ID >= m_low_limit_id`，那么表明最新修改该行的事务（`DB_TRX_ID`）在当前事务创建快照之后才修改该行，所以该记录行的值对当前事务不可见。跳到步骤 5

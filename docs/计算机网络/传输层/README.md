@@ -26,7 +26,7 @@
 
 ### TCP 首部格式
 
-![](https://images.yingwai.top/picgo/20210810161404.png)
+![](https://images.yingwai.top/picgo/20210810161404.png ':size=60%')
 
 - **序号** ：用于对字节流进行编号，例如序号为 301，表示第一个字节的编号为 301，如果携带的数据长度为 100 字节，那么下一个报文段的序号应为 401。
 - **确认号** ：期望收到的下一个报文段的序号。例如 B 正确收到 A 发送来的一个报文段，序号为 501，携带的数据长度为 200 字节，因此 B 期望下一个报文段的序号为 701，B 发送给 A 的确认报文段中确认号就为 701。
@@ -42,7 +42,7 @@
 
 TCP 是面向连接的协议，所以使用 TCP 前必须先建立连接，而**建立连接是通过三次握手来进行的。**
 
-![](https://images.yingwai.top/picgo/20210718203242.png)
+![](https://images.yingwai.top/picgo/20210718203242.png ':size=60%')
 
 - 首先服务端处于 `LISTEN`（监听）状态，等待客户端的连接请求；
 - 第一次握手：客户端发送 SYN 包（seq = x）到服务器，并进入`SYN_SEND`状态，等待服务器确认；
@@ -84,7 +84,7 @@ RFC1948 中提出了一个较好的初始化序列号 ISN 随机生成算法。
 
 TCP 断开连接是通过**四次挥手**方式。双方都可以主动断开连接，断开连接后主机中的「资源」将被释放。
 
-![](https://images.yingwai.top/picgo/20210810162233.jpg)
+![](https://images.yingwai.top/picgo/20210810162233.jpg ':size=60%')
 
 以下描述不讨论序号和确认号，因为序号和确认号的规则比较简单。并且不讨论 ACK，因为 ACK 在连接建立之后都为 1。
 
@@ -151,7 +151,7 @@ TCP 使用超时重传来实现可靠传输：如果一个已经发送的报文�
 
 接收窗口只会对窗口内最后一个按序到达的字节进行确认，例如接收窗口已经收到的字节为 {31, 34, 35}，其中 {31} 按序到达，而 {34, 35} 就不是，因此只对字节 31 进行确认。发送方得到一个字节的确认之后，就知道这个字节之前的所有字节都已经被接收。
 
-![](https://images.yingwai.top/picgo/20210810163456.jpg)
+![](https://images.yingwai.top/picgo/20210810163456.jpg ':size=60%')
 
 
 
@@ -167,7 +167,7 @@ TCP 使用超时重传来实现可靠传输：如果一个已经发送的报文�
 
 如果网络出现拥塞，分组将会丢失，此时发送方会继续重传，从而导致网络拥塞程度更高。因此当出现拥塞时，应当控制发送方的速率。这一点和流量控制很像，但是出发点不同。流量控制是为了让接收方能来得及接收，而拥塞控制是为了降低整个网络的拥塞程度。
 
-![](https://images.yingwai.top/picgo/20210810163607.jpg)
+![](https://images.yingwai.top/picgo/20210810163607.jpg ':size=40%')
 
 TCP 主要通过四个算法来进行拥塞控制：慢开始、拥塞避免、快重传、快恢复。
 
@@ -178,7 +178,7 @@ TCP 主要通过四个算法来进行拥塞控制：慢开始、拥塞避免、�
 - 接收方有足够大的接收缓存，因此不会发生流量控制；
 - 虽然 TCP 的窗口基于字节，但是这里设窗口的大小单位为报文段。
 
-![](https://images.yingwai.top/picgo/20210810163753.png)
+![](https://images.yingwai.top/picgo/20210810163753.png ':size=60%')
 
 #### 慢开始与拥塞避免
 
@@ -198,7 +198,7 @@ TCP 主要通过四个算法来进行拥塞控制：慢开始、拥塞避免、�
 
 慢开始和快恢复的快慢指的是 cwnd 的设定值，而不是 cwnd 的增长速率。慢开始 cwnd 设定为 1，而快恢复 cwnd 设定为 ssthresh。
 
-![](https://images.yingwai.top/picgo/20210810163734.png)
+![](https://images.yingwai.top/picgo/20210810163734.png ':size=60%')
 
 
 
@@ -206,7 +206,7 @@ TCP 主要通过四个算法来进行拥塞控制：慢开始、拥塞避免、�
 
 #### send 函数
 
-```c++
+```c
 int send(SOCKET s, const char FAR *buf, int len, int flags);
 ```
 
@@ -234,7 +234,7 @@ int send(SOCKET s, const char FAR *buf, int len, int flags);
 
 #### recv 函数
 
-```java
+```c
 int recv(SOCKET s, char FAR *buf, int len, int flags);
 ```
 
@@ -283,7 +283,7 @@ recv函数返回其实际copy的字节数。如果recv在copy时出错，那么�
 
 ### UDP 首部格式
 
-![](https://images.yingwai.top/picgo/20210810162013.png)
+![](https://images.yingwai.top/picgo/20210810162013.png ':size=60%')
 
 首部字段只有 8 个字节，包括源端口、目的端口、长度、检验和。12 字节的伪首部是为了计算检验和临时添加的。
 
@@ -291,7 +291,7 @@ recv函数返回其实际copy的字节数。如果recv在copy时出错，那么�
 
 ## 对应的应用层协议
 
-![](https://images.yingwai.top/picgo/20210810163900.png)
+![](https://images.yingwai.top/picgo/20210810163900.png ':size=60%')
 
 ### TCP 对应的应用层协议
 

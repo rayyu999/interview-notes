@@ -26,7 +26,7 @@ SETNX key value
 
 * **惰性删除：**指使用的时候，发现Key过期了，此时再进行删除。
 
-![](https://images.yingwai.top/picgo/20210726213612.png)
+![](https://images.yingwai.top/picgo/20210726213612.png ':size=60%')
 
 
 
@@ -34,7 +34,7 @@ SETNX key value
 
 Redis支持内存淘汰，配置参数`maxmemory_policy`决定了内存淘汰策略的策略。这个参数一共有8个枚举值。
 
-![](https://images.yingwai.top/picgo/20210726213710.png)
+![](https://images.yingwai.top/picgo/20210726213710.png ':size=65%')
 
 1. **volatile-lru（least recently used）**：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
 2. **volatile-ttl**：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰

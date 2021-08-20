@@ -4,13 +4,13 @@
 
 各数据结构的底层实现：
 
-![](https://images.yingwai.top/picgo/20210720220433.png)
+![](https://images.yingwai.top/picgo/20210720220433.png ':size=60%')
 
 ## String（字符串）
 
 Redis的字符串如果保存的对象是整数类型，那么就用int存储。如果不能用整数表示，就用SDS来表示，SDS通过记录长度，和预分配空间，可以高效计算长度，进行append操作。
 
-![](https://images.yingwai.top/picgo/20210818174517.jpg)
+![](https://images.yingwai.top/picgo/20210818174517.jpg ':size=60%')
 
 在 Redis 内部， 字符串的追加和长度计算很常见， 而 APPEND 和 STRLEN 更是这两种操作，在 Redis 命令中的直接映射， 这两个简单的操作不应该成为性能的瓶颈。
 
@@ -38,7 +38,7 @@ Redis的字符串如果保存的对象是整数类型，那么就用int存储。
 2. 迁移`ht[0]`数据到`ht[1]`。在 Rehash 进行期间，每次对字典执行增删查改操作，程序会顺带迁移一个`ht[0]`上的数据，并更新偏移索引。与此同时，周期函数也会定时迁移一批。
 3. `ht[1]`和`ht[0]`指针对象交换。随着字典操作的不断执行， 最终在某个时间点上，`ht[0]`的所有键值对都会被 Rehash至 `ht[1]`，此时再将`ht[1]`和`ht[0]`指针对象互换，同时把偏移索引的值设为`-1`，表示Rehash操作已完成。
 
-![](https://images.yingwai.top/picgo/20210818174640.png)
+![](https://images.yingwai.top/picgo/20210818174640.png ':size=80%')
 
 #### 如果字典正在Rehash，此时有请求过来，Redis会怎么处理？
 
@@ -61,7 +61,7 @@ Redis 有序集合和集合一样也是 string 类型元素的集合,且不允�
 
 跳表本质上是对链表的一种优化，通过逐层跳步采样的方式构建索引，以加快查找速度。如果只用普通链表，只能一个一个往后找。跳表就不一样了，可以高层索引，一次跳跃多个节点，如果找过头了，就用更下层的索引。
 
-![](https://images.yingwai.top/picgo/20210719222002.png)
+![](https://images.yingwai.top/picgo/20210719222002.png ':size=80%')
 
 ### 每个节点的层数
 
@@ -69,7 +69,7 @@ Redis 有序集合和集合一样也是 string 类型元素的集合,且不允�
 
 可以看到，50%的概率被分配到第一层，25%的概率被分配到第二层，12.5%的概率被分配到第三层。这种方式保证了越上层数量越少，自然跨越起来越方便。
 
-![](https://images.yingwai.top/picgo/20210719222049.png)
+![](https://images.yingwai.top/picgo/20210719222049.png ':size=70%')
 
 ### Zset 为什么同时需要字典和跳表来实现？
 
