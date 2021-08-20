@@ -22,7 +22,7 @@
 
 查看存储引擎命令：
 
-```mysql
+```sql
 SHOW ENGINES
 ```
 
