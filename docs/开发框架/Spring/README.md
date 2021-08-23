@@ -155,7 +155,7 @@ Spring AOP 已经集成了 AspectJ ，AspectJ 应该算的上是 Java 生态系�
 - 当要销毁 Bean 的时候，如果 Bean 实现了 `DisposableBean` 接口，执行 `destroy()` 方法。
 - 当要销毁 Bean 的时候，如果 Bean 在配置文件中的定义包含 destroy-method 属性，执行指定的方法。
 
-![http://images.yingwai.top/picgo/20210108142928.jpg](http://images.yingwai.top/picgo/20210108142928.jpg)
+![http://images.yingwai.top/picgo/20210108142928.jpg](http://images.yingwai.top/picgo/20210108142928.jpg ':size=70%')
 
 ![http://images.yingwai.top/picgo/20210108143539.png](http://images.yingwai.top/picgo/20210108143539.png)
 

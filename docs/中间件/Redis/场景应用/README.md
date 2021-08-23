@@ -30,7 +30,7 @@ Write behind简单理解就是延迟写入，Cache Provider 每隔一段时间�
 
 ##### 读请求常见流程
 
-![](https://images.yingwai.top/picgo/20210818173242.png)
+![](https://images.yingwai.top/picgo/20210818173242.png ':size=40%')
 
 应用首先会判断缓存是否有该数据，缓存命中直接返回数据，缓存未命中即缓存穿透到数据库，从数据库查询数据然后回写到缓存中，最后返回数据给客户端。
 
@@ -50,7 +50,7 @@ Cache aside策略如果用错就会遇到深坑，下面来逐个踩。
 
 如果同时有两个**写请求**需要更新数据，每个写请求都先更新数据库再更新缓存，在并发场景可能会出现数据不一致的情况。
 
-![](https://images.yingwai.top/picgo/20210818173409.png)
+![](https://images.yingwai.top/picgo/20210818173409.png ':size=60%')
 
 如上图的执行过程：
 
@@ -65,7 +65,7 @@ Cache aside策略如果用错就会遇到深坑，下面来逐个踩。
 
 如果**写请求**的处理流程是**先删缓存再更新数据库**，在一个**读请求**和一个**写请求**并发场景下可能会出现数据不一致情况。
 
-![](https://images.yingwai.top/picgo/20210818173422.jpg)
+![](https://images.yingwai.top/picgo/20210818173422.jpg ':size=60%')
 
 如上图的执行过程：
 
@@ -79,7 +79,7 @@ Cache aside策略如果用错就会遇到深坑，下面来逐个踩。
 
 在实际的系统中针对**写请求**还是推荐**先更新数据库再删除缓存**，但是在理论上还是存在问题，以下面这个例子说明。
 
-![](https://images.yingwai.top/picgo/20210818173434.png)
+![](https://images.yingwai.top/picgo/20210818173434.png ':size=60%')
 
 如上图的执行过程：
 
@@ -97,7 +97,7 @@ Cache aside策略如果用错就会遇到深坑，下面来逐个踩。
 
 在 Cache Aside 更新模式中，应用代码需要维护两个数据源头：一个是缓存，一个是数据库。而在 Read-Through 策略下，应用程序无需管理缓存和数据库，只需要将数据库的同步委托给缓存提供程序 Cache Provider 即可。所有数据交互都是通过抽象缓存层完成的。
 
-![](https://images.yingwai.top/picgo/20210818173447.jpg)
+![](https://images.yingwai.top/picgo/20210818173447.jpg ':size=75%')
 
 如上图，应用程序只需要与`Cache Provider`交互，不用关心是从缓存取还是数据库。
 
@@ -116,13 +116,13 @@ Cache aside策略如果用错就会遇到深坑，下面来逐个踩。
 
 `Cache Provider`类似一个代理的作用。
 
-![](https://images.yingwai.top/picgo/20210818173459.png)
+![](https://images.yingwai.top/picgo/20210818173459.png ':size=80%')
 
 #### Write behind
 
 `Write behind`在一些地方也被成为`Write back`， 简单理解就是：应用程序更新数据时只更新缓存， `Cache Provider`每隔一段时间将数据刷新到数据库中。说白了就是延迟写入。
 
-![](https://images.yingwai.top/picgo/20210818173513.jpg)
+![](https://images.yingwai.top/picgo/20210818173513.jpg ':size=80%')
 
 如上图，应用程序更新两个数据，Cache Provider 会立即写入缓存中，但是隔一段时间才会批量写入数据库中。
 
@@ -175,7 +175,7 @@ Cache aside策略如果用错就会遇到深坑，下面来逐个踩。
 
 锁是计算机领域一个非常常见的概念，分布式锁也依赖存储组件，针对请求量的不同，可以选择Etcd、MySQL、Redis等。前两者可靠性更强，Redis性能更高。
 
-![](https://images.yingwai.top/picgo/20210726221237.png)
+![](https://images.yingwai.top/picgo/20210726221237.png ':size=55%')
 
 ### 实现
 
@@ -198,7 +198,7 @@ DEL lock 		// 释放锁
 (integer) 1
 ```
 
-![](https://images.yingwai.top/picgo/20210726222219.jpg)
+![](https://images.yingwai.top/picgo/20210726222219.jpg ':size=80%')
 
 ### 死锁
 
@@ -228,7 +228,7 @@ DEL lock 		// 释放锁
 
 比较好的方法是：**加锁时，先设置一个过期时间，然后我们开启一个「守护线程」，定时去检测这个锁的失效时间，如果锁快要过期了，操作共享资源还未完成，那么就自动对锁进行「续期」，重新设置过期时间。**Redisson 就封装好了这些工作。
 
-![](https://images.yingwai.top/picgo/20210727172117.jpg)
+![](https://images.yingwai.top/picgo/20210727172117.jpg ':size=40%')
 
 ### 锁被别人释放
 
@@ -275,7 +275,7 @@ if (redis.get("lock") == $uuid) {
 
 可以看到，布隆过滤器优缺点都很明显，优点是空间、时间消耗都很小，缺点是结果不是完全准确。
 
-![](https://images.yingwai.top/picgo/202108172112093.png)
+![](https://images.yingwai.top/picgo/202108172112093.png ':size=40%')
 
 ### 扩容/删除过期数据
 
