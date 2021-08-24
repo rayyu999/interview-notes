@@ -8,7 +8,7 @@
 
 下图是 MySQL 的一个简要架构图，从下图你可以很清晰的看到用户的 SQL 语句在 MySQL 内部是如何执行的。
 
-![](https://images.yingwai.top/picgo/20210812111541.png ':size=60%')
+![](https://images.yingwai.top/picgo/20210824101954.png)
 
 上图涉及的一些组件：
 
