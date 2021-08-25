@@ -209,7 +209,7 @@ Spring 使用三级缓存来解决循环依赖的问题，三级缓存分别是�
 
 创建 Bean 的方法在`AbstractAutowireCapableBeanFactory::doCreateBean()`
 
-1. **在构造`Bean`对象之后，将对象提前曝光到缓存中，这时候曝光的对象仅仅是构造完成，还没注入属性和初始化**
+1. ##### 在构造`Bean`对象之后，将对象提前曝光到缓存中，这时候曝光的对象仅仅是构造完成，还没注入属性和初始化
 
    ```java
    protected Object doCreateBean(final String beanName, final RootBeanDefinition mbd, Object[] args) throws BeanCreationException {
@@ -240,7 +240,7 @@ Spring 使用三级缓存来解决循环依赖的问题，三级缓存分别是�
    }
    ```
 
-2. **提前曝光的对象被放入`Map<String, ObjectFactory<?>> singletonFactories`缓存中，这里并不是直接将`Bean`放入缓存，而是包装成`ObjectFactory`对象再放入**
+2. ##### 提前曝光的对象被放入`Map<String, ObjectFactory<?>> singletonFactories`缓存中，这里并不是直接将`Bean`放入缓存，而是包装成`ObjectFactory`对象再放入
 
    ```java
    public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements SingletonBeanRegistry {
@@ -265,7 +265,7 @@ Spring 使用三级缓存来解决循环依赖的问题，三级缓存分别是�
    }
    ```
 
-3. **为什么要包装一层`ObjectFactory`对象？**
+3. ##### 为什么要包装一层`ObjectFactory`对象？
 
    如果创建的`Bean`有对应的**代理**，那其他对象注入时，注入的应该是对应的**代理对象**；但是 Spring 无法提前知道这个对象是不是有**循环依赖**的情况，而**正常情况**下（没有循环依赖情况），Spring 都是在创建好**完成品 `Bean`** 之后才创建对应的**代理**。这时候 Spring 有两个选择：
 
@@ -314,7 +314,7 @@ Spring 使用三级缓存来解决循环依赖的问题，三级缓存分别是�
    }      
    ```
 
-4. **注入属性和初始化**
+4. ##### 注入属性和初始化
 
    提前曝光之后：
 
@@ -372,7 +372,7 @@ Spring 使用三级缓存来解决循环依赖的问题，三级缓存分别是�
    }
    ```
 
-5. **放入已完成创建的单例缓存**
+5. ##### 放入已完成创建的单例缓存
 
    在经历了以下步骤之后，最终通过`addSingleton`方法将最终生成的可用的`Bean`放入到`单例缓存`里。
 
