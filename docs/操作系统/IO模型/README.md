@@ -217,5 +217,64 @@ select 的设计思想是：预先传入一个socket列表，**如果列表中�
 
 经由这些步骤，当进程A被唤醒后，它知道至少有一个socket接收了数据。程序只需遍历一遍socket列表，就可以得到就绪的socket。
 
-这种简单方式**行之有效**，在几乎所有操作系统都有对应的实现。
+这种简单方式**行之有效**，在几乎所有操作系统都有对应的实现。但有比较大的缺点：
+
+* 每次调用select都需要将进程加入到所有监视socket的等待队列，每次唤醒都需要从每个队列中移除。这里涉及了两次遍历，而且每次都要将整个fds列表传递给内核，有一定的开销。正是因为遍历操作开销大，出于效率的考量，才会规定select的最大监视数量，默认只能监视1024个socket。
+* 进程被唤醒后，程序并不知道哪些socket收到数据，还需要遍历一次。
+
+> 本节只解释了select的一种情形。当程序调用select时，内核会先遍历一遍socket，如果有一个以上的socket接收缓冲区有数据，那么select直接返回，不会阻塞。这也是为什么select的返回值有可能大于1的原因之一。如果没有socket有数据，进程才会阻塞。
+
+### epoll 的设计思路
+
+epoll通过以下一些措施来改进效率。
+
+1. **功能分离**
+
+   select低效的原因之一是将“维护等待队列”和“阻塞进程”两个步骤合二为一。如下图所示，每次调用select都需要这两步操作，然而大多数应用场景中，需要监视的socket相对固定，并不需要每次都修改。epoll将这两个操作分开，先用epoll_ctl维护等待队列，再调用epoll_wait阻塞进程。显而易见的，效率就能得到提升。
+
+   ![](https://images.yingwai.top/picgo/202108262301068.jpg)
+
+2. **就绪列表**
+
+   select低效的另一个原因在于程序不知道哪些socket收到数据，只能一个个遍历。如果内核维护一个“就绪列表”，引用收到数据的socket，就能避免遍历。如下图所示，计算机共有三个socket，收到数据的sock2和sock3被rdlist（就绪列表）所引用。当进程被唤醒后，只要获取rdlist的内容，就能够知道哪些socket收到数据。
+
+   ![](https://images.yingwai.top/picgo/202108262302818.jpg)
+
+### epoll 的原理和流程
+
+1. #### 创建 epoll 对象
+
+   如下图所示，当某个进程调用epoll_create方法时，内核会创建一个eventpoll对象（也就是程序中epfd所代表的对象）。eventpoll对象也是文件系统中的一员，和socket一样，它也会有等待队列。
+
+   ![](https://images.yingwai.top/picgo/202108262303506.jpg)
+
+   创建一个代表该epoll的eventpoll对象是必须的，因为内核要维护“就绪列表”等数据，“就绪列表”可以作为eventpoll的成员。
+
+2. #### 维护监视列表
+
+   创建epoll对象后，可以用epoll_ctl添加或删除所要监听的socket。以添加socket为例，如下图，如果通过epoll_ctl添加sock1、sock2和sock3的监视，内核会将eventpoll添加到这三个socket的等待队列中。
+
+   ![](https://images.yingwai.top/picgo/202108262304695.jpg)
+
+   当socket收到数据后，中断程序会操作eventpoll对象，而不是直接操作进程。
+
+3. #### 接收数据
+
+   当socket收到数据后，中断程序会给eventpoll的“就绪列表”添加socket引用。如下图展示的是sock2和sock3收到数据后，中断程序让rdlist引用这两个socket。
+
+   ![](https://images.yingwai.top/picgo/202108262304987.jpg)
+
+   eventpoll对象相当于是socket和进程之间的中介，socket的数据接收并不直接影响进程，而是通过改变eventpoll的就绪列表来改变进程状态。
+
+   当程序执行到epoll_wait时，如果rdlist已经引用了socket，那么epoll_wait直接返回，如果rdlist为空，阻塞进程。
+
+4. #### 阻塞和唤醒进程
+
+   假设计算机中正在运行进程A和进程B，在某时刻进程A运行到了epoll_wait语句。如下图所示，内核会将进程A放入eventpoll的等待队列中，阻塞进程。
+
+   ![](https://images.yingwai.top/picgo/202108262305720.jpg)
+
+   当socket接收到数据，中断程序一方面修改rdlist，另一方面唤醒eventpoll等待队列中的进程，进程A再次进入运行状态（如下图）。也因为rdlist的存在，进程A可以知道哪些socket发生了变化。
+
+   ![](https://images.yingwai.top/picgo/202108262305522.jpg)
 
