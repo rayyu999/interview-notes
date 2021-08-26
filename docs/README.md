@@ -4,6 +4,8 @@
 
 后台开发面试题总结，主要针对 Java 开发的岗位，根据八股文分为了几个部分。
 
+（内容大多数参考网上别的内容，如 [JavaGuide](https://snailclimb.gitee.io/javaguide/#/)/[CS-Notes](https://www.cyc2018.xyz/)/[小林coding](https://www.cnblogs.com/xiaolincoding/) 等等。本站只是作总结，请多支持原作者）
+
 ## 算法
 
 这部分主要包括数据结构以及 leetcode 刷题的笔记。
