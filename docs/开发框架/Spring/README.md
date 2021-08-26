@@ -440,7 +440,7 @@ MVC 是一种设计模式，Spring MVC 是一款很优秀的 MVC 框架。Spring
 
 **`@Controller` 返回一个页面**
 
-单独使用 `@Controller` 不加 `@ResponseBody`的话一般使用在要返回一个视图的情况，这种情况属于比较传统的Spring MVC 的应用，对应于前后端不分离的情况。
+单独使用 `@Controller` 不加 `@ResponseBody`的话一般使用在要返回一个视图的情况，这种情况属于比较传统的 Spring MVC 的应用，对应于前后端不分离的情况。
 
 ![http://images.yingwai.top/picgo/20210107191319.png](http://images.yingwai.top/picgo/20210107191319.png)
 
