@@ -124,7 +124,7 @@ public static ExecutorService newCachedThreadPool() {
 
 任务是**CPU密集型**的：一般定义 `corePoolSize` 为电脑cpu逻辑处理器数量+1（原因是即使当计算（CPU）密集型的线程偶尔由于页缺失故障或者其他原因而暂停时，这个“额外”的线程也能确保 CPU 的时钟周期不会被浪费）；
 
-任务是**IO密集型**的：一般定义 `corePoolSize` 为电脑cpu逻辑处理器数量的两倍。
+任务是**I/O密集型**的：一般定义 `corePoolSize` 为电脑 CPU 逻辑处理器数量的两倍。这是因为I/O密集型的情况下，常常会有比较多的线程因为等待 Socket 就绪而被阻塞，设置为两倍的目的就是当比较多的线程被阻塞时能更好地利用 CPU 资源。
 
 > Java 如何看cpu逻辑处理器数量：`Runtime.getRuntime().availableProcessors();`
 
