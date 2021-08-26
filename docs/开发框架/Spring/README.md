@@ -413,7 +413,7 @@ Spring 使用三级缓存来解决循环依赖的问题，三级缓存分别是�
 
 而每次实例化完 Bean 之后就直接去创建代理对象，并添加到二级缓存中，直接忽略三级缓存。**测试结果是完全正常的**，**Spring 的初始化时间应该也是不会有太大的影响。**那为什么还要额外加一层缓存？
 
-**如果要使用二级缓存解决循环依赖，意味着Bean在构造完后就创建代理对象，这样违背了Spring设计原则。Spring结合AOP跟Bean的生命周期，是在Bean创建完全之后通过`AnnotationAwareAspectJAutoProxyCreator`这个后置处理器来完成的，在这个后置处理的`postProcessAfterInitialization`方法中对初始化后的Bean完成AOP代理。如果出现了循环依赖，那没有办法，只有给Bean先创建代理，但是没有出现循环依赖的情况下，设计之初就是让Bean在生命周期的最后一步完成代理而不是在实例化后就立马完成代理。**
+**如果要使用二级缓存解决循环依赖，意味着 Bean 在构造完后就创建代理对象，这样违背了 Spring 设计原则。Spring 结合 AOP 跟 Bean 的生命周期，是在 Bean 创建完全之后通过`AnnotationAwareAspectJAutoProxyCreator`这个后置处理器来完成的，在这个后置处理的`postProcessAfterInitialization`方法中对初始化后的 Bean 完成 AOP 代理。如果出现了循环依赖，那没有办法，只有给 Bean 先创建代理，但是没有出现循环依赖的情况下，设计之初就是让 Bean 在生命周期的最后一步完成代理而不是在实例化后就立马完成代理。**
 
 
 
