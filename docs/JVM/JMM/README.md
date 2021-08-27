@@ -49,6 +49,75 @@ Java内存模型规定**所有的变量都存储在主内存**中，包括实例
 
 
 
+## [指令重排序](https://blog.csdn.net/lovewebeye/article/details/79728688)
+
+在执行程序时，为了提高性能，编译器和处理器会对指令做重排序。
+
+编译器优化重排序：编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。
+指令级并行的重排序：如果不存l在数据依赖性，处理器可以改变语句对应机器指令的执行顺序。
+内存系统的重排序：处理器使用缓存和读写缓冲区，这使得加载和存储操作看上去可能是在乱序执行。
+但是，可以通过插入特定类型的`Memory Barrier`来禁止特定类型的编译器重排序和处理器重排序。
+
+### 数据依赖性
+
+如果两个操作访问同一个变量，其中一个为写操作，此时这两个操作之间存在数据依赖性。 
+
+编译器和处理器不会改变存在数据依赖性关系的两个操作的执行顺序，即不会重排序。
+
+### as-if-serial
+
+不管怎么重排序，单线程下的执行结果不能被改变。
+
+编译器、runtime和处理器都必须遵守 as-if-serial 语义。
+
+### 内存屏障（Memory Barrier）
+
+上面讲到了，通过内存屏障可以禁止特定类型处理器的重排序，从而让程序按我们预想的流程去执行。
+
+内存屏障，又称内存栅栏，是一个CPU指令，基本上它是一条这样的指令：
+
+1. 保证特定操作的执行顺序。
+2. 影响某些数据（或则是某条指令的执行结果）的内存可见性。
+
+### happens-before
+
+在JMM中，如果一个操作的执行结果需要对另一个操作可见，那么这两个操作之间必须要存在 happens-before 关系，这个的两个操作既可以在同一个线程，也可以在不同的两个线程中。
+
+具体的一共有六项规则：
+
+1. 程序顺序规则：一个线程中的每个操作，happens-before于该线程中的任意后续操作。
+2. 监视器锁规则：对一个锁的解锁，happens-before于随后对这个锁的加锁。
+3. volatile变量规则：对一个volatile域的写，happens-before于任意后续对这个volatile域的读。
+4. 传递性：如果A happens-before B，且B happens-before C，那么A happens-before C。
+5. start()规则：如果线程A执行操作ThreadB.start()（启动线程B），那么A线程的ThreadB.start()操作happens-before于线程B中的任意操作。
+6. join()规则：如果线程A执行操作ThreadB.join()并成功返回，那么线程B中的任意操作happens-before于线程A从ThreadB.join()操作成功返回。
+7. 程序中断规则：对线程interrupted()方法的调用先行于被中断线程的代码检测到中断时间的发生。
+8. 对象finalize规则：一个对象的初始化完成（构造函数执行结束）先行于发生它的finalize()方法的开始。
+
+注意：两个操作之间具有 happens-before 关系，并不意味前一个操作必须要在后一个操作之前执行！仅仅要求前一个操作的执行结果，对于后一个操作是可见的，且前一个操作按顺序排在后一个操作之前。下面以一个具体的例子来讲下如何使用这些规则进行推论：
+
+```java
+double pi  = 3.14;    //A
+double r   = 1.0;     //B
+double area = pi * r * r; //C
+```
+
+依旧以上面计算圆面积的进行描述。利用程序顺序规则（规则1）存在三个happens-before关系：
+
+1. A happens-before B
+2. B happens-before C
+3. A happens-before C
+
+这里的第三个关系是利用传递性进行推论的。A happens-before B，定义1要求A执行结果对B可见，并且A操作的执行顺序在B操作之前，但与此同时利用定义中的第二条，A，B操作彼此不存在数据依赖性，两个操作的执行顺序对最终结果都不会产生影响，在不改变最终结果的前提下，允许A，B两个操作重排序，即**happens-before关系并不代表了最终的执行顺序。**
+
+### [as-if-serial 与 happens-before 的区别](https://thinkwon.blog.csdn.net/article/details/102074107?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-6.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-6.control)
+
+* as-if-serial语义保证单线程内程序的执行结果不被改变，happens-before关系保证正确同步的多线程程序的执行结果不被改变。
+* as-if-serial语义给编写单线程程序的程序员创造了一个幻境：单线程程序是按程序的顺序来执行的。happens-before关系给编写正确同步的多线程程序的程序员创造了一个幻境：正确同步的多线程程序是按happens-before指定的顺序来执行的。
+* as-if-serial语义和happens-before这么做的目的，都是为了在不改变程序执行结果的前提下，尽可能地提高程序执行的并行度。
+
+
+
 ##  讲讲 `volatile` 关键字
 
 很多并发编程都使用了`volatile`关键字，主要的作用包括两点：
@@ -63,3 +132,11 @@ volatile修饰的变量，当一个线程改变了该变量的值，其他线程
 volatile保证可见性的流程大概就是这个一个过程：
 
 ![](https://images.yingwai.top/picgo/20210806181546.png)
+
+注意 volatile 不能保证线程安全，因为它不能保证原子性。
+
+### 禁止指令重排序
+
+重排序的种类分为三种，分别是：编译器重排序，指令级并行的重排序，内存系统重排序。整个过程如下所示：
+
+![](https://images.yingwai.top/picgo/20210827170019.png)
