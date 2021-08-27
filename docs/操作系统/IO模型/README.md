@@ -169,13 +169,13 @@ epoll 对多线程编程更有友好，一个线程调用了 epoll_wait() 另一
 
 下图中的计算机中运行着A、B、C三个进程，其中进程A执行着上述基础网络程序，一开始，这3个进程都被操作系统的工作队列所引用，处于运行状态，会分时执行。
 
-![](https://images.yingwai.top/picgo/202108262109999.jpg)
+![](https://images.yingwai.top/picgo/202108262109999.jpg ':size=33%')
 
 #### 等待队列
 
 当进程A执行到创建socket的语句时，操作系统会创建一个由文件系统管理的socket对象（如下图）。这个socket对象包含了发送缓冲区、接收缓冲区、等待队列等成员。等待队列是个非常重要的结构，它指向所有需要等待该socket事件的进程。
 
-![](https://images.yingwai.top/picgo/202108262111136.jpg)
+![](https://images.yingwai.top/picgo/202108262111136.jpg ':size=33%')
 
 当程序执行到 recv 时，操作系统会将进程A从工作队列移动到该socket的等待队列中（如下图）。由于工作队列只剩下了进程B和C，依据进程调度，cpu会轮流执行这两个进程的程序，不会执行进程A的程序。**所以进程A被阻塞，不会往下执行代码，也不会占用cpu资源**。
 
@@ -191,11 +191,11 @@ epoll 对多线程编程更有友好，一个线程调用了 epoll_wait() 另一
 
 如下图所示，进程在 recv 阻塞期间，计算机收到了对端传送的数据（步骤①）。数据经由网卡传送到内存（步骤②），然后网卡通过中断信号通知cpu有数据到达，cpu执行中断程序（步骤③）。此处的中断程序主要有两项功能，先将网络数据写入到对应socket的接收缓冲区里面（步骤④），再唤醒进程A（步骤⑤），重新将进程A放入工作队列中。
 
-![](https://images.yingwai.top/picgo/202108262114400.jpg)
+![](https://images.yingwai.top/picgo/202108262114400.jpg ':size=45%')
 
 唤醒进程的过程如下图所示：
 
-![](https://images.yingwai.top/picgo/202108262114860.jpg)
+![](https://images.yingwai.top/picgo/202108262114860.jpg ':size=36%')
 
 因为一个socket对应着一个端口号，而网络数据包中包含了ip和端口的信息，内核可以通过端口号找到对应的socket。当然，为了提高处理速度，操作系统会维护端口号到socket的索引结构，以快速读取。
 
@@ -234,7 +234,7 @@ epoll通过以下一些措施来改进效率。
 
    select低效的原因之一是将“维护等待队列”和“阻塞进程”两个步骤合二为一。如下图所示，每次调用select都需要这两步操作，然而大多数应用场景中，需要监视的socket相对固定，并不需要每次都修改。epoll将这两个操作分开，先用epoll_ctl维护等待队列，再调用epoll_wait阻塞进程。显而易见的，效率就能得到提升。
 
-   ![](https://images.yingwai.top/picgo/202108262301068.jpg)
+   ![](https://images.yingwai.top/picgo/202108262301068.jpg ':size=33%')
 
 2. **就绪列表**
 
