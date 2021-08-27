@@ -148,7 +148,7 @@ System.out.println(list)
 
 在编译期，将java代码翻译为字节码文件的过程经过了四个步骤：**词法分析**、**语法分析**、**语义分析**、**代码生成**。
 
-![](https://images.yingwai.top/picgo/202108232311415.png)
+![](https://images.yingwai.top/picgo/202108232311415.png ':size=55%')
 
 **词法分析**
 
