@@ -16,6 +16,7 @@
       * [148. 排序链表](算法/leetcode/listnode/148.%20排序链表)
       * [160. 相交链表](算法/leetcode/listnode/160.%20相交链表)
       * [206. 反转链表](算法/leetcode/listnode/206.%20反转链表)
+      * [剑指 Offer 22. 链表中倒数第k个节点](算法/leetcode/listnode/剑指%20Offer%2022.%20链表中倒数第k个节点)
       * [排序奇升偶降链表](算法/leetcode/listnode/排序奇升偶降链表)
       
       
