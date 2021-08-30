@@ -78,6 +78,123 @@ Spring AOP 已经集成了 AspectJ ，AspectJ 应该算的上是 Java 生态系�
 
 - `TransactionDefinition.PROPAGATION_NESTED`： 如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行；如果当前没有事务，则该取值等价于`TransactionDefinition.PROPAGATION_REQUIRED`。
 
+### `@Transactional(rollbackFor = Exception.class)` 注解
+
+Exception分为运行时异常RuntimeException和非运行时异常。事务管理对于企业应用来说是至关重要的，即使出现异常情况，它也可以保证数据的一致性。
+
+当`@Transactional`注解作用于类上时，该类的所有 public 方法将都具有该类型的事务属性，同时，我们也可以在方法级别使用该标注来覆盖类级别的定义。如果类或者方法加了这个注解，那么这个类里面的方法抛出异常，就会回滚，数据库里面的数据也会回滚。
+
+在`@Transactional`注解中如果不配置`rollbackFor`属性，那么事务只会在遇到`RuntimeException`的时候才会回滚，加上`rollbackFor=Exception.class`，可以让事务在遇到非运行时异常时也回滚。
+
+#### `@Transactional` 失效场景
+
+1. ##### 数据库引擎不支持事务
+
+   如果数据库引擎不支持事务，则 Spring 自然无法支持事务，比如 MyISAM 引擎。
+
+2. ##### 没有被 Spring 管理
+
+   如下面例子所示：
+
+   ```java
+   // @Service
+   public class OrderServiceImpl implements OrderService {
+   
+       @Transactional
+       public void updateOrder(Order order) {
+           // update order
+       }
+   
+   }
+   ```
+
+   如果此时把 `@Service` 注解注释掉，这个类就不会被加载成一个 Bean，那这个类就不会被 Spring 管理了，事务自然就失效了。
+
+3. ##### 方法不是 `public` 的
+
+   - @Transactional注解使用的是AOP，在使用动态代理的时候只能针对`public`方法进行代理，源码依据在`AbstractFallbackTransactionAttributeSource`类中的`computeTransactionAttribute`方法中，如下：
+
+   ```java
+   protected TransactionAttribute computeTransactionAttribute(Method method,
+       Class<?> targetClass) {
+           // Don't allow no-public methods as required.
+           if (allowPublicMethodsOnly() && !Modifier.isPublic(method.getModifiers())) {
+           return null;
+   }
+   ```
+
+   此处如果不是标注在 `public` 修饰的方法上并不会抛出异常，但是会导致事务失效。
+
+4. ##### 方法中调用同类的方法
+
+   简单的说就是一个类中的`A方法`（未标注声明式事务）在内部调用了`B方法`(标注了声明式事务)，这样会导致B方法中的事务失效：
+
+   ```java
+   @Service
+   public class Test {
+   	public void A() {
+   		// 插入一条数据
+       	// 调用B方法
+       	B();
+     	}
+     
+     	@Transactional
+     	public void B() {
+       	// 插入数据
+     	}
+   }
+   ```
+
+   失效的原因很简单，Spring 在扫描 Bean 的时候会自动为标注了 `@Transactional` 注解的类生成一个代理类（proxy），当有注解的方法被调用的时候，实际上是代理类调用的，代理类在调用之前会开启事务，执行事务的操作，但是同类中的方法互相调用，相当于 `this.B()`，此时的B方法并非是代理类调用，而是直接通过原有的 Bean 直接调用，所以注解会失效。
+
+   这个的解决方案之一就是在的类中注入自己，用注入的对象再调用另外一个方法，这个不太优雅，另外一个可行的方案可以参考《[Spring 如何在一个事务中开启另一个事务？](https://link.zhihu.com/?target=https%3A//mp.weixin.qq.com/s/1TEBnmWynN4nwc6Q-oZfvw)》这篇文章。这个问题的更多原理可以参考：
+
+   * [Spring service本类中方法调用另一个方法事务不生效问题](https://blog.csdn.net/java_2017_csdn/article/details/103993713)
+   * [踩坑! spring事务,非事务方法与事务方法执行相互调用](https://blog.csdn.net/m0_38027656/article/details/84190949?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control)。
+
+5. ##### 数据源没有配置事务管理器
+
+   ```java
+   @Bean
+   public PlatformTransactionManager transactionManager(DataSource dataSource) {
+       return new DataSourceTransactionManager(dataSource);
+   }
+   ```
+
+   如上面所示，当前数据源若没有配置事务管理器，那也是无法使用 Spring 事务的。
+
+6. ##### `propagation` 属性设置错误
+
+   事务的传播属性在上面已经介绍了，默认的事务传播属性是`Propagation.REQUIRED`，但是一旦配置了错误的传播属性，也是会导致事务失效，如下三种配置将会导致事务失效：
+
+   - Propagation.SUPPORTS
+   - Propagation.NOT_SUPPORTED
+   - Propagation.NEVER
+   
+7. ##### 异常被吞了
+
+   ```java
+   @Service
+   public class OrderServiceImpl implements OrderService {
+   
+       @Transactional
+       public void updateOrder(Order order) {
+           try {
+               // update order
+           } catch {
+   
+           }
+       }
+   
+   }
+   ```
+
+   上面代码中 catch 异常后没有抛出去，事务自然不会回滚。
+
+8. ##### `rollbackFor` 属性设置错误
+
+   指定异常触发回滚，一旦设置错误，导致一些异常不能触发回滚，此时的声明式事务就失效了。
+
 
 
 ## Spring Bean
