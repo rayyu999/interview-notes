@@ -1,6 +1,7 @@
 # Linux
 
-
+* [LINUX的进程、线程、文件描述符是什么](https://labuladong.gitee.io/algo/6/48/)
+* [LINUX 文件系统都是什么鬼](https://labuladong.gitee.io/algo/6/47/)
 
 ## 进程
 
@@ -94,7 +95,7 @@ PS：不要忘了，Linux 中⼀切都被抽象成⽂件，设备也是⽂件，
 
 如果我们写的程序需要其他资源，⽐如打开⼀个⽂件进⾏读写，这也很简单，进⾏系统调⽤，让内核把⽂件打开，这个⽂件就会被放到 files 的第 4 个位置：
 
-![](https://images.yingwai.top/picgo/20210830174155.png)
+![](https://images.yingwai.top/picgo/20210830174155.png ':size=50%')
 
 明⽩了这个原理，**输⼊重定向**就很好理解了，程序想读取数据的时候就会去 `files[0]` 读取，所以我们只要把 `files[0]` 指向⼀个⽂件，那么程序就会从这个⽂件中读取数据，⽽不是从键盘：
 
@@ -102,7 +103,7 @@ PS：不要忘了，Linux 中⼀切都被抽象成⽂件，设备也是⽂件，
 $ command < file.txt
 ```
 
-![](https://images.yingwai.top/picgo/20210830174305.png)
+![](https://images.yingwai.top/picgo/20210830174305.png ':size=50%')
 
 同理，**输出重定向**就是把 `files[1]` 指向⼀个⽂件，那么程序的输出就不会写⼊到显⽰器，⽽是写⼊到这个⽂件中：
 
@@ -110,7 +111,7 @@ $ command < file.txt
 $ command > file.txt
 ```
 
-![](https://images.yingwai.top/picgo/20210830174705.png)
+![](https://images.yingwai.top/picgo/20210830174705.png ':size=50%')
 
 错误重定向也是⼀样的，就不再赘述。
 
@@ -120,7 +121,7 @@ $ command > file.txt
 $ cmd1 | cmd2 | cmd3
 ```
 
-![](https://images.yingwai.top/picgo/20210830174800.png)
+![](https://images.yingwai.top/picgo/20210830174800.png ':size=50%')
 
 到这⾥，你可能也看出「Linux 中⼀切皆⽂件」设计思路的⾼明了，不管是设备、另⼀个进程、socket 套接字还是真正的⽂件，全部都可以读写，统⼀装进⼀个简单的 `files` 数组，进程通过简单的⽂件描述符访问相应资源，具体细节交于操作系统，有效解耦，优美⾼效。
 
@@ -136,9 +137,9 @@ $ cmd1 | cmd2 | cmd3
 
 换句话说，线程看起来跟进程没有区别，只是线程的某些数据区域和其⽗进程是共享的，⽽⼦进程是拷⻉副本，⽽不是共享。就⽐如说， `mm` 结构和 `files` 结构在线程中都是共享的，我画两张图你就明⽩了：
 
-![](https://images.yingwai.top/picgo/20210830175006.png)
+![](https://images.yingwai.top/picgo/20210830175006.png ':size=50%')
 
-![](https://images.yingwai.top/picgo/20210830175020.png)
+![](https://images.yingwai.top/picgo/20210830175020.png ':size=50%')
 
 所以说，我们的多线程程序要利⽤锁机制，避免多个线程同时往同⼀区域写⼊数据，否则可能造成数据错乱。
 
