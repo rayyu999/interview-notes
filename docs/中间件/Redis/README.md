@@ -6,8 +6,8 @@
 
 ### SETNX
 
-```shell
-SETNX key value
+```shell-session
+$ SETNX key value
 ```
 
 如果指定的 key 不存在，则创建并为其设置值，然后返回状态码 1；如果指定的 key 存在，则直接返回 0。如果返回值为 1，代表获得该锁；此时其他进程再次尝试创建时，由于 key 已经存在，则都会返回 0 ，代表锁已经被占用。
