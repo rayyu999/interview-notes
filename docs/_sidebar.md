@@ -15,6 +15,7 @@
   * [MyBatis](开发框架/MyBatis/)
 * [中间件](中间件/)
   * [Redis](中间件/Redis/)
+  * [ZooKeeper](中间件/ZooKeeper/)
 * [设计模式](设计模式/)
 * [场景题](场景题/)
 * [智力题](智力题/)
