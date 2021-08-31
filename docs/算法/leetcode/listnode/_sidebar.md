@@ -13,6 +13,7 @@
       * [82. 删除排序链表中的重复元素 II](算法/leetcode/listnode/82.%20删除排序链表中的重复元素%20II)
       * [92. 反转链表 II](算法/leetcode/listnode/92.%20反转链表%20II)
       * [141. 环形链表](算法/leetcode/listnode/141.%20环形链表)
+      * [142. 环形链表 II](算法/leetcode/listnode/142.%20环形链表%20II)
       * [143. 重排链表](算法/leetcode/listnode/143.%20重排链表)
       * [148. 排序链表](算法/leetcode/listnode/148.%20排序链表)
       * [160. 相交链表](算法/leetcode/listnode/160.%20相交链表)
