@@ -30,6 +30,13 @@ Spring的核心思想之一：**Inversion of Control，控制反转 IoC**。控�
 
 
 
+### IOC 源码阅读
+
+* [Spring IOC 容器源码分析](https://www.javadoop.com/post/spring-ioc)
+* https://github.com/seaswalker/spring-analysis/blob/master/note/Spring.md
+
+
+
 ## AOP
 
 AOP（Aspect-Oriented Programming：面向切面编程）能够将那些与业务无关，**却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来**，便于**减少系统的重复代码**，**降低模块间的耦合度**，并**有利于未来的可拓展性和可维护性**。
@@ -55,6 +62,13 @@ AOP（Aspect-Oriented Programming：面向切面编程）能够将那些与业�
 Spring AOP 已经集成了 AspectJ ，AspectJ 应该算的上是 Java 生态系统中最完整的 AOP 框架了。AspectJ 相比于 Spring AOP 功能更加强大，但是 Spring AOP 相对来说更简单，
 
 如果我们的切面比较少，那么两者性能差异不大。但是，当切面太多的话，最好选择 AspectJ ，它比Spring AOP 快很多。
+
+
+
+### AOP 源码阅读
+
+* [Spring AOP 源码解析](https://www.javadoop.com/post/spring-aop-source)
+* https://github.com/seaswalker/spring-analysis/blob/master/note/spring-aop.md
 
 
 
