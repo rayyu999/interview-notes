@@ -92,7 +92,7 @@
            return u;
        }
        u = loadFromDB(id);
-       cache.put(u);
+       cache.put(id, u);
        return u;
    }
    ```
