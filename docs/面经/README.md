@@ -71,6 +71,36 @@
 7. token怎样保证幂等、为什么要在预提交阶段生成？
 8. 布隆过滤器怎么防重、满了怎么办？
 
+### Lazada二面（9/1）
+
+1. 实习项目、技术上的困难，为什么要重构、以前的流程存在什么问题？
+
+2. 手写 HashMap
+
+3. SQL：`stu_score`表有字段 `stu_id, class_id, score`，获取每个班最高分的学生信息（进阶：如果有两个以上并列第一，只获取一个怎么写）
+
+4. Spring AOP 原理，什么情况下AOP注解不起作用
+
+5. HashMap 要线程安全怎么做，给了个 ConcurrentHashMap 的使用场景，问会不会有线程安全问题（`putIfAbsent(K key, V value)`），要怎么改才能保证线程安全：
+
+   ```java
+   ConcurrentHashMap<Long, User> cache = new ConcurrentHashMap<>();
+   
+   User getUser(Long id) {
+       User u = cache.get(id);
+       if (u != null) {
+           return u;
+       }
+       u = loadFromDB(id);
+       cache.put(u);
+       return u;
+   }
+   ```
+
+6. 多台机器的线程安全怎么实现，自旋的优缺点，自旋停顿时间怎么设置
+
+7. 有没有使用过其它语言，Java 与其他语言对比的优缺点
+
 
 
 ### 灵犀互娱一面（8/31）
