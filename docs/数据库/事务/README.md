@@ -42,7 +42,7 @@ SQL 标准定义了四个隔离级别：
 | REPEATABLE-READ  |  ×   |     ×      |  √   |
 |   SERIALIZABLE   |  ×   |     ×      |  ×   |
 
-MySQL InnoDB 存储引擎的默认支持的隔离级别是 **REPEATABLE-READ（可重读）**。我们可以通过`SELECT @@tx_isolation;`命令来查看,MySQL 8.0 该命令改为`SELECT @@transaction_isolation;`
+MySQL InnoDB 存储引擎的默认支持的隔离级别是 **REPEATABLE-READ（可重读）**。我们可以通过`SELECT @@tx_isolation;`命令来查看，MySQL 8.0 该命令改为`SELECT @@transaction_isolation;`
 
 这里需要注意的是：与 SQL 标准不同的地方在于InnoDB 存储引擎在 **REPEATABLE-READ（可重读）** 事务隔离级别下，允许应用使用 Next-Key Lock 锁算法来避免幻读的产生。这与其他数据库系统(如 SQL Server)是不同的。所以说虽然 InnoDB 存储引擎的默认支持的隔离级别是 **REPEATABLE-READ（可重读）** ，但是可以通过应用加锁读（例如 `select * from table for update` 语句）来保证不会产生幻读，而这个加锁度使用到的机制就是 Next-Key Lock 锁算法。从而达到了 SQL 标准的 **SERIALIZABLE(可串行化)** 隔离级别。
 
