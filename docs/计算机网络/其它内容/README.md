@@ -47,3 +47,12 @@ Cookie实际上是一小段的文本信息。客户端请求服务器，如果�
 - 缩短SYN半链接的Time out 时间
 - 关闭不必要的服务
 
+
+
+## 常见面试题
+
+* [计算机网络面试问题集锦_qq_39322743的博客-CSDN博客_计算机网络面试题](https://blog.csdn.net/qq_39322743/article/details/79700863?ops_request_misc=%7B%22request%5Fid%22%3A%22161542868916780264098812%22%2C%22scm%22%3A%2220140713.130102334..%22%7D&request_id=161542868916780264098812&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-4-79700863.first_rank_v2_pc_rank_v29&utm_term=计算机网络面试)
+* [计算机网络核心知识点总结&面试笔试要点_HenryLei的博客-CSDN博客_计算机网络核心知识点](https://blog.csdn.net/huanglei305/article/details/99712771?utm_medium=distribute.pc_feed_404.none-task-blog-BlogCommendFromMachineLearnPai2-11.nonecase&dist_request_id=&depth_1-utm_source=distribute.pc_feed_404.none-task-blog-BlogCommendFromMachineLearnPai2-11.nonecas)
+* [【学习】计算机网络重点知识点面试突击_小听歌的博客-CSDN博客](https://blog.csdn.net/qq_21407523/article/details/114195378)
+* [TCP CLOSE_WAIT 过多解决方案_王卫东 博客-CSDN博客_close wait 过多原因](https://blog.csdn.net/wwd0501/article/details/78674170)
+
