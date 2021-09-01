@@ -2,6 +2,8 @@
 
 ![](https://images.yingwai.top/picgo/20210901162458.jpg)
 
+图片来源：https://www.zhihu.com/question/53826114
+
 ## 实现原理
 
 `synchronized` 不论是修饰方法还是代码块，都是通过持有修饰对象的锁来实现同步，`synchronized` 的锁对象是存在锁对象的对象头的 MarkWord 中的。对象在内存中的布局如下：
