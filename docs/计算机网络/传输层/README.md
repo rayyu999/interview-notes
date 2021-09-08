@@ -283,7 +283,7 @@ recv函数返回其实际copy的字节数。如果recv在copy时出错，那么�
 
 ### UDP 首部格式
 
-![](https://images.yingwai.top/picgo/20210810162013.png ':size=60%')
+![](https://images.yingwai.top/picgo/202109080940081.jpg ':size=60%')
 
 首部字段只有 8 个字节，包括源端口、目的端口、长度、检验和。12 字节的伪首部是为了计算检验和临时添加的。
 
