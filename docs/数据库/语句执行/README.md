@@ -25,7 +25,7 @@
 
 
 
-## SQL 关键字执行顺序
+## [SQL 关键字执行顺序](https://zhuanlan.zhihu.com/p/66831988)
 
 `from` -> `on` -> `join` -> `where` -> `group by`（开始使用select中的别名，后面的语句中都可以使用别名）-> `sum`、`count`、`max`、`avg` -> `having` -> `select` -> `distinct` -> `order by` -> `limit`
 
